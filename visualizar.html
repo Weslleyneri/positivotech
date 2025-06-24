@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Programação</title>
+  <style>
+    body {
+      margin: 0;
+      background: url('file:///C:/Users/75036/Desktop/PORTAL%20TESTE/ChatGPT%20Image%2023%20de%20jun.%20de%202025,%2016_13_23.png') no-repeat center center fixed;
+      background-size: cover; /* Altere o nome da imagem de fundo aqui */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px black;
+    }
+
+    .voltar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .voltar:hover {
+      background: rgba(0,0,0,0.9);
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="voltar">← Voltar</a>
+  <img id="programacao" src="" alt="Programação do Técnico" />
+
+  <script>
+    // Captura a imagem da URL e exibe
+    const params = new URLSearchParams(window.location.search);
+    const imgSrc = params.get("img");
+
+    if (imgSrc) {
+      document.getElementById("programacao").src = decodeURIComponent(imgSrc);
+    } else {
+      document.body.innerHTML = "<h2 style='color:white'>Imagem não encontrada.</h2>";
+    }
+  </script>
+</body>
+</html>

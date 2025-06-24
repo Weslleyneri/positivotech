@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal de Consulta - Técnico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('file:///C:/Users/75036/Desktop/PORTAL%20TESTE/ChatGPT%20Image%2023%20de%20jun.%20de%202025,%2016_13_23.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 40px;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 30px;
+      border-radius: 20px;
+      width: 500px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    label, select, input, button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    #botaoConsulta {
+      padding: 12px;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #dataHora {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body onload="iniciarRelogio()">
+  <div class="container">
+    <h2>Consulta de Programação</h2>
+
+    <label for="base">Base de Atendimento:</label>
+    <select id="base" onchange="atualizarTecnicos()">
+      <option value="">Selecione a base</option>
+      <option value="Sorocaba">Sorocaba</option>
+      <option value="Mogi Guaçu">Mogi Guaçu</option>
+    </select>
+
+    <label for="tecnico">Técnico:</label>
+    <select id="tecnico">
+      <option value="">Selecione o técnico</option>
+    </select>
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" placeholder="Digite sua senha" />
+
+    <div id="dataHora">Data/Hora atual:</div>
+
+    <button id="botaoConsulta" onclick="consultarImagem()">Consultar Programação</button>
+  </div>
+
+  <script>
+    const tecnicosPorBase = {
+      "Sorocaba": ["Luis Augusto Fernandes Da Silva"],
+      "Mogi Guaçu": ["Muriel Naressi Albano"]
+    };
+
+    const credenciais = {
+      "Luis Augusto Fernandes Da Silva": {
+        senha: "1234",
+        imagem: "file:///C:/Users/75036/Desktop/PORTAL%20TESTE/IMG%20TECH/LUIS%20AUGUSTO.png" // Caminho da imagem
+      },
+      "Muriel Naressi Albano": {
+        senha: "1234",
+        imagem: "file:///C:/Users/75036/Desktop/PORTAL%20TESTE/IMG%20TECH/Muriel%20Naressi%20Albano.png"
+      }
+    };
+
+    function atualizarTecnicos() {
+      const base = document.getElementById("base").value;
+      const tecnicoSelect = document.getElementById("tecnico");
+      tecnicoSelect.innerHTML = '<option value="">Selecione o técnico</option>';
+      if (tecnicosPorBase[base]) {
+        tecnicosPorBase[base].forEach(tecnico => {
+          const opt = document.createElement("option");
+          opt.value = tecnico;
+          opt.textContent = tecnico;
+          tecnicoSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function iniciarRelogio() {
+      setInterval(() => {
+        const d = new Date();
+        document.getElementById("dataHora").innerText =
+          `Data/Hora atual: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+      }, 1000);
+    }
+
+    function consultarImagem() {
+      const tecnico = document.getElementById('tecnico').value;
+      const senha = document.getElementById('senha').value;
+
+      if (!tecnico) return alert("Selecione o técnico.");
+      if (!credenciais[tecnico]) return alert("Técnico não configurado.");
+      if (senha !== credenciais[tecnico].senha) return alert("Senha incorreta.");
+
+      const imagem = encodeURIComponent(credenciais[tecnico].imagem);
+      window.location.href = `visualizar.html?img=${imagem}`;
+    }
+  </script>
+</body>
+</html>
